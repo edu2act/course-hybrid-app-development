@@ -1,0 +1,31 @@
+<app-a [arrData]="arrData" (getIndex)="getI($event)">
+
+</app-a>
+<!-- <h2>{{con}}</h2>
+<h2 [class.title]="true">标题1</h2>
+<h2 [ngClass]="{'title':3%2==0,'bg':true}">标题2</h2>
+
+<h3 [style.color]="'red'">标题3</h3>
+<h3 [ngStyle]="{'color':3%2==0?'red':'green'}">标题4</h3>
+<input type="text" #username (input)="str=username.value" value="1234">
+{{str}}
+<form  #userForm="ngForm" (ngSubmit)="submit(userForm.value)">
+    <fieldset ngModelGroup="namegroup">
+        <input type="text" name="first" [(ngModel)]="user.firstname">
+        <input type="text" name="last" [(ngModel)]="user.lastname">
+    </fieldset>
+    <fieldset ngModelGroup="addressgroup">
+        <input type="text" name="first" [(ngModel)]="user.firstname">
+        <input type="text" name="last" [(ngModel)]="user.lastname">
+    </fieldset>
+    <input type="submit" value="提交">
+</form> -->
+
+
+
+
+<div [appColor]="{'color':'red','background':'blue'}" width="100px">dddddd</div>
+<h2>{{  {name:'liu'}|json  }}</h2>
+<h2>{{ date|date:'y/M/d'  }}</h2>
+<h2>{{ 2.3456|number:'2.1-2'  }}</h2>
+<h2>{{ 200 | num:2 }}</h2>

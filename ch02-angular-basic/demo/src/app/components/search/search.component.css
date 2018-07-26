@@ -1,0 +1,33 @@
+ul,li{
+    list-style: none;
+}
+/* .box{
+    background: #cdcdcd;
+    padding-bottom: 50px; 
+} */
+header{
+    height:50px;
+    background: rgba(47,47,47,0.98);
+}
+section{
+    width: 620px;
+    margin: 0 auto;
+}
+.inp{
+    width: 60%;
+    height: 24px;
+    float: right;
+    margin-top: 12px;
+    text-indent: 10px;
+    border-radius: 5px;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.24), 0 1px 6px rgba(0,0,0,0.45) inset;
+    border: none;
+}
+label{
+    float: left;
+    width: 100px;
+    line-height: 50px;
+    color: #DDD;
+    font-size: 24px;
+    cursor: pointer;
+}

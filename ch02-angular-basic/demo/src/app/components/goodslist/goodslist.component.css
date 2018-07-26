@@ -1,0 +1,11 @@
+ul,li{
+    list-style: none;
+}
+li{
+    width: 40%;
+    font-size: 20px;
+    float: left;
+    margin: 5%;
+    height: 100px;
+    background: rgb(25, 214, 34);
+}

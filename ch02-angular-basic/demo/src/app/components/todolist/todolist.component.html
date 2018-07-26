@@ -1,0 +1,25 @@
+<div class="box">
+  <header>
+    <section>
+      <label for="inp">ToDoList</label>
+      <input id="inp" class="inp" type="text" placeholder="添加ToDo" [(ngModel)]="content" (keyup)="keyData($event)">
+      <!-- <button (click)="addData()">添加数据</button> -->
+    </section>
+  </header>
+  <section>
+    <h2>正在进行</h2>
+    <ul>
+      <li *ngFor="let item of tolist;let idx = index;">
+        <input type="checkbox" (change)="change(idx)">{{item}}<button (click)="delData(idx)">删除</button>
+      </li>
+    </ul> 
+    <h2>已经完成</h2>
+    <ul>
+      <li *ngFor="let item of comlist;let idx = index;">
+        <input type="checkbox" checked (change)="change2(idx)">{{item}}<button (click)="delData2(idx)">删除</button>
+      </li>
+    </ul>
+  </section>
+</div>
+
+
