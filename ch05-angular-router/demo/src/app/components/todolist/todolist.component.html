@@ -1,0 +1,27 @@
+<!-- 1、写输入框标签，绑定键盘事件 -->
+<h1>这是todo组件</h1>
+<input [(ngModel)]="txt" type="text" (keydown)="getValue($event)">
+<h3>正在进行 <span>{{arr.length-counter}}</span> </h3>
+<!-- 2、写入待办事件呈现列表 -->
+<ul>
+    <ng-container *ngFor="let item of arr;let i = index;">
+        <li *ngIf="!item.done">
+            <input (click)="change(i)" type="checkbox">
+            {{item.title}}
+            <!-- 3、删除按钮绑定点击事件 -->
+            <button (click)="delete(i)">删除</button>
+        </li>
+    </ng-container>
+</ul>
+
+<h3>已经完成 <span>{{counter}}</span></h3>
+<ul>
+    <ng-container *ngFor="let item of arr;let i = index;">
+        <li *ngIf="item.done">
+            <input checked (click)="change(i)" type="checkbox">
+            {{item.title}}
+            <!-- 3、删除按钮绑定点击事件 -->
+            <button (click)="delete(i)">删除</button>
+        </li>
+    </ng-container>
+</ul>
