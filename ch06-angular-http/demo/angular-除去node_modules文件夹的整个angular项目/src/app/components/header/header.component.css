@@ -1,0 +1,14 @@
+nav{
+    height: 50px;
+    background-color: #ccc;
+}
+.nav{
+    width: 1200px;
+    margin: 0 auto;
+    line-height: 50px;
+}
+.nav li{
+    float: left;
+    margin: 0 30px;
+    cursor: pointer;
+}

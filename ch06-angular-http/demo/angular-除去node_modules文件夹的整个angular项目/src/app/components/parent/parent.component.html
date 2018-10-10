@@ -1,0 +1,3 @@
+<h1>这是parent组件</h1>
+<app-input (outValue)="addData($event)"></app-input>
+<app-list [arr]="data" (delIndex)="del($event)" (changeIndex)="change($event)"></app-list>
