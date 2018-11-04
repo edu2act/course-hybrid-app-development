@@ -1,0 +1,68 @@
+<ion-header text-center no-border>
+  <ion-navbar>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      home
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="options"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  css工具集--theme下
+  sass变量(全局) -- variable.scss
+  slides组件、属性、方法及事件
+  @ViewChild()
+  创建组件 ionic g component componentName
+  模板引用变量 标签上写 #变量名
+  segment组件及ngSwitch
+  服务器代理 ionic.config.json
+  <ion-segment [(ngModel)]="icons" color="secondary">
+    <ion-segment-button value="camera">
+      <ion-icon name="camera"></ion-icon>
+    </ion-segment-button>
+    <ion-segment-button value="bookmark">
+      <ion-icon name="bookmark"></ion-icon>
+    </ion-segment-button>
+  </ion-segment>
+  <div [ngSwitch]="icons">
+    <div *ngSwitchCase="'camera'">
+      这是camera
+    </div>
+    <div *ngSwitchCase="'bookmark'">
+      这是bookMark
+    </div>
+  </div>
+
+
+  <c #ac></c>
+  <input type="text" #inp>
+  <button  ion-button menuToggle>开关菜单</button>
+  <button ion-button block (click)="goSub()">跳转</button>
+  <ion-list>
+    <ion-item detail-push>Item</ion-item>
+    <ion-item>Item</ion-item>
+    <ion-item>Item</ion-item>   
+    <ion-item no-lines>Item</ion-item>
+    <ion-item>
+      <h2>Item</h2>
+      <p>Item Paragraph</p>
+      <ion-thumbnail item-end>
+        <img src="assets/imgs/logo.png">
+      </ion-thumbnail>
+    </ion-item>
+    <ion-item-sliding>
+      <ion-item>
+        Item
+      </ion-item>
+      <ion-item-options>
+        <button ion-button color="primary" (click)="archive()">Archive</button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,30 @@
+<ion-header no-border text-center>
+  <ion-navbar color="trans">
+    <ion-title>注册</ion-title>
+    <!-- <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name=""></ion-icon>
+      </button>
+    </ion-buttons> -->
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <!-- 在B中单独开一个模块 -->
+  <div class="box">
+    <ion-item>
+      <ion-icon name="ios-phone-portrait" item-start></ion-icon>
+      <ion-input type="number" placeholder="手机号"></ion-input>
+    </ion-item>
+    <ion-item no-padding>
+      <ion-icon name="ios-phone-portrait" item-start></ion-icon>
+      <ion-input type="text" placeholder="验证码"></ion-input>
+      <button style="width:100px;height:100%;float:right;margin:0;" item-end>倒计时30s</button>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="ios-phone-portrait" item-start></ion-icon>
+      <ion-input type="password" placeholder="密码"></ion-input>
+    </ion-item>
+    <button ion-button block color="yel">注册</button>
+    <p>已有账号？立即登录</p>
+  </div>
+</ion-content>
