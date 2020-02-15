@@ -1,47 +1,192 @@
-# 基础组件
+# React-Native 路由选择
 
-## View
+> - react-navigation 适合 App，react-router-dom 适合网页
+> - react-navigation 默认提供的比如 Header、StackNavigator 和TabNavigator 都是开发 App 时必备的，而 react-router-dom 不提供
+> - react-router 地址改变，切换到另一个 route 后，原有的 route 就被销毁，包括组件的 state，如果这时返回，原有的 route 需要重新实例化，而 react-navigation 不是这样，原route依然存在
+>
+>
 
-> 创建 UI 时最基础的组件，直接对应一个平台的原生视图，IOS中的 UIView、Android中的android.view和Web中的div等
+## react-navigation
 
-## Text
+### 安装
 
-> - 一个用于显示文本的 RN 组件，支持嵌套、样式，以及触摸处理，可继承样式
-> - `<Text>`元素在布局上不同于其它组件：在Text内部的元素不再使用flexbox布局，而是采用文本布局。
+```
+yarn add react-navigation react-native-gesture-handler react-native-reanimated and react-native-screens
+```
 
-## Image
+> 添加代码到 android/app/build.gradle：
+>
+> implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
+> implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02'
 
-> 用于显示多种不同类型图片的 React 组件，包括网络图片、静态资源、base64图片等。
+## react-native-router-flux
 
-```JSx
-export default class DisplayAnImage extends Component {
+> [react-native-router-flux](https://github.com/aksonov/react-native-router-flux) 是一个基于 [react-navigation](https://github.com/react-navigation/react-navigation) 路由框架，进一步简化了页面跳转的步骤，并且一直随着 [react-navigation](https://github.com/react-navigation/react-navigation)升级更新版本。而且使用这个框架的话，可以将全部的页面跳转的处理逻辑都写在一个地方，方便了后续的维护。
+
+### 安装
+
+```
+ yarn add react-native-router-flux
+ import {Router, Scene} from "react-native-router-flux";
+```
+
+```jsx
+const Root = () => {
+  return (
+    <Router>
+      {/* 这种写法是将全部的跳转页面都放在Root下面 */}
+      <Scene key="root">
+        {/* key 就是给页面的标签,供Actions使用 */}
+        {/* component 设置关联的页面 */}
+        {/* title 就是给页面标题 */}
+        {/* initial 就是设置默认页面*/}
+        <Scene
+          key="one"
+          component={PageOne}
+          title="PageOne"
+          initial={true}
+        />
+        <Scene key="two" component={PageTwo} title="PageTwo" />
+      </Scene>
+    </Router>
+  );
+};
+
+//导入Actions的包,处理页面跳转
+import { Actions } from 'react-native-router-flux';
+ 
+const PageOne = () => {
+  return (
+    <View style={styles.container}>
+      <Text onPress={()=>Actions.two()}>
+        我是Page One
+      </Text>
+    </View>
+  );
+};
+
+export default class PageTwo extends Component {
   render() {
     return (
-      <View>
-        <Image
-          source={require('../assets/logo.png')}
-        />
-        <Image
-          style={{width: 50, height: 50}}
-          source={{uri: 'https://facebook.github.io/react-native/img/tiny_logo.png'}}
-        />
-        <Image
-          style={{width: 66, height: 58}}
-          source={{uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB+2/ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw+P/eMrC5UTVAAAAABJRU5ErkJggg=='}}
-        />
+      <View style={styles.container}>
+        <Text>我是Page Two </Text>
       </View>
-    );
+    )
   }
 }
 
+//设置tab选中时的字体颜色和标题
+const TabIcon = ({focused , title}) => {
+  return (
+    <Text style={{color: focused  ? 'blue' : 'black'}}>{title}</Text>
+  );
+};
+ 
+const Root = () => {
+  return (<Router>
+    {/*tabBarPosition设置tab是在top还是bottom */}
+    <Scene hideNavBar tabBarPosition="bottom">
+      <Tabs
+        key="tabbar"
+        swipeEnabled
+        wrap={false}
+        // 是否显示标签栏文字
+        showLabel={false}
+        tabBarStyle={{backgroundColor: "#eee"}}
+        //tab选中的颜色
+        activeBackgroundColor="white"
+        //tab没选中的颜色
+        inactiveBackgroundColor="red"
+      >
+        <Scene
+          key="one"
+          icon={TabIcon}
+          component={PageOne}
+          title="PageOne"
+        />
+ 
+        <Scene
+          key="two"
+          component={PageTwo}
+          title="PageTwo"
+          icon={TabIcon}
+        />
+ 
+        <Scene
+          key="three"
+          component={PageThree}
+          title="PageThree"
+          icon={TabIcon}
+        />
+      </Tabs>
+    </Scene>
+  </Router>)
+};
+
+//实时刷新
+export default class PageTwo extends Component {
+  render() {
+    const data = this.props.data || "null";
+    return (
+      <View style={styles.container}>
+        <Text
+          style={styles.welcome}
+          onPress={() => Actions.three({data: "从 two 传递到 three"})}
+        >我是Page Two </Text>
+        <Text
+          style={styles.refresh}
+          onPress={() => Actions.refresh({
+            data: 'Changed data',
+          })}
+        >refresh:{data}</Text>
+      </View>
+    )
+  }
+}
+
+//数据传递
+import {Actions} from "react-native-router-flux"
+ 
+const PageThree = () => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.welcome}
+        //Actions.pop是退回到上一层
+        onPress={() => Actions.pop({
+          //refresh用于刷新数据
+          refresh: {
+            data: '从 three 回到 two'
+          }
+        })}
+      >我是Page Three </Text>
+    </View>
+  );
+};
+
+import {Actions} from 'react-native-router-flux'; // New code
+ 
+export default class PageTwo extends Component {
+  render() {
+    const data = this.props.data || "null";
+    return (
+      <View style={styles.container}>
+        <Text
+          style={styles.welcome}
+          //添加点击事件并传递数据到PageThree
+          onPress={() => Actions.three({data: "从 two 传递到 three"})}
+        >我是Page Two </Text>
+       <Text style={styles.refresh}
+        //展示从PageThree传回来的数据
+        >refresh:{data}</Text>
+      </View>
+    )
+  }
+}
 ```
 
-> ### 属性：resizeMode
->
-> 决定当组件尺寸和图片尺寸不成比例的时候如何调整图片的大小。默认值为`cover`。
->
-> - `cover`: 在保持图片宽高比的前提下缩放图片，直到宽度和高度都大于等于容器视图的尺寸（如果容器有 padding 内衬的话，则相应减去）。
-> - `contain`: 在保持图片宽高比的前提下缩放图片，直到宽度和高度都小于等于容器视图的尺寸（如果容器有 padding 内衬的话，则相应减去）。**译注**：这样图片完全被包裹在容器中，容器中可能留有空白。
-> - `stretch`: 拉伸图片且不维持宽高比，直到宽高都刚好填满容器。
-> - `repeat`: 重复平铺图片直到填满容器。图片会维持原始尺寸，但是当尺寸超过容器时会在保持宽高比的前提下缩放到能被容器包裹。
-> - `center`: 居中不拉伸。
+
+
+#### 
+
+
+
