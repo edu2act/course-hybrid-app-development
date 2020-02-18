@@ -72,6 +72,9 @@
 ## 安装模拟器
 
 - 安装 Android 模拟器（夜神模拟器）
+- adb版本号不一致的，将 SDK 中 platform-tools 里的 adb.exe 复制出去一份，重命名为 nox_adb.exe ,替换掉 模拟器 bin目录下的 nox_adb.exe
+- 执行 adb connect 127.0.0.1:62001（不要在模拟器的bin目录下执行）
+- 测试，执行 adb devices，如果显示连接的设备，就成功
 
 ## 创建-运行项目
 
