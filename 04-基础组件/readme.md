@@ -136,6 +136,17 @@ export default class DisplayAnImage extends Component {
 ### FlatList
 
 > 高性能的简单列表组件
+>
+> - onRefresh：下拉刷新
+>
+> - refreshing：下拉刷新时的图标
+>
+> - onEndReached: 上拉加载
+>
+> - onEndReachedThreshold: （0-1之间的数）距离底部多少距离触发上拉加载函数
+>
+> - keyExtractor: 为 item 指定key
+>
 
 ```jsx
 <FlatList
@@ -147,6 +158,23 @@ export default class DisplayAnImage extends Component {
 ### SectionList
 
 > 高性能的分组(section)列表组件
+
+```jsx
+<SectionList
+  renderItem={({ item, index, section }) => <Text key={index}>{item}</Text>}
+  renderSectionHeader={({ section: { title } }) => (
+    <Text style={{ fontWeight: "bold" }}>{title}</Text>
+  )}
+  sections={[
+    { title: "Title1", data: ["item1", "item2"] },
+    { title: "Title2", data: ["item3", "item4"] },
+    { title: "Title3", data: ["item5", "item6"] }
+  ]}
+  keyExtractor={(item, index) => item + index}
+/>
+```
+
+
 
 ## Android 独有组件
 
@@ -166,6 +194,3 @@ export default class DisplayAnImage extends Component {
 
 ### TimePickerAndroid
 
-### 
-
-### 
