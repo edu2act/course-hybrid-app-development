@@ -1,7 +1,7 @@
 # React-Native 路由选择
 
 > - react-navigation 适合 App，react-router-dom 适合网页
-> - react-navigation 默认提供的比如 Header、StackNavigator 和TabNavigator 都是开发 App 时必备的，而 react-router-dom 不提供
+> - react-navigation 默认提供的比如 Header、StackNavigator 和TabNavigator 都是开发 App 时必备的，而 react-router不提供
 > - react-router 地址改变，切换到另一个 route 后，原有的 route 就被销毁，包括组件的 state，如果这时返回，原有的 route 需要重新实例化，而 react-navigation 不是这样，原route依然存在
 >
 >
@@ -26,15 +26,18 @@ yarn add react-navigation react-native-gesture-handler react-native-reanimated a
 ### 安装
 
 ```
- yarn add react-native-router-flux
- import {Router, Scene} from "react-native-router-flux";
+ yarn add react-native-router-flux@4.0.6
 ```
 
+#### 基础使用
+
 ```jsx
+...
+import {Router, Scene} from "react-native-router-flux";
 const Root = () => {
   return (
     <Router>
-      {/* 这种写法是将全部的跳转页面都放在Root下面 */}
+      {/* 将全部的跳转页面都放在Root下面 */}
       <Scene key="root">
         {/* key 就是给页面的标签,供Actions使用 */}
         {/* component 设置关联的页面 */}
@@ -46,13 +49,22 @@ const Root = () => {
           title="PageOne"
           initial={true}
         />
-        <Scene key="two" component={PageTwo} title="PageTwo" />
+        <Scene 
+            key="two" 
+            component={PageTwo} 
+            title="PageTwo" 
+        />
       </Scene>
     </Router>
   );
 };
+```
 
-//导入Actions的包,处理页面跳转
+#### 路由跳转
+
+```jsx
+...
+//导入Actions,处理页面跳转
 import { Actions } from 'react-native-router-flux';
  
 const PageOne = () => {
@@ -65,65 +77,7 @@ const PageOne = () => {
   );
 };
 
-export default class PageTwo extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>我是Page Two </Text>
-      </View>
-    )
-  }
-}
-
-//设置tab选中时的字体颜色和标题
-const TabIcon = ({focused , title}) => {
-  return (
-    <Text style={{color: focused  ? 'blue' : 'black'}}>{title}</Text>
-  );
-};
- 
-const Root = () => {
-  return (<Router>
-    {/*tabBarPosition设置tab是在top还是bottom */}
-    <Scene hideNavBar tabBarPosition="bottom">
-      <Tabs
-        key="tabbar"
-        swipeEnabled
-        wrap={false}
-        // 是否显示标签栏文字
-        showLabel={false}
-        tabBarStyle={{backgroundColor: "#eee"}}
-        //tab选中的颜色
-        activeBackgroundColor="white"
-        //tab没选中的颜色
-        inactiveBackgroundColor="red"
-      >
-        <Scene
-          key="one"
-          icon={TabIcon}
-          component={PageOne}
-          title="PageOne"
-        />
- 
-        <Scene
-          key="two"
-          component={PageTwo}
-          title="PageTwo"
-          icon={TabIcon}
-        />
- 
-        <Scene
-          key="three"
-          component={PageThree}
-          title="PageThree"
-          icon={TabIcon}
-        />
-      </Tabs>
-    </Scene>
-  </Router>)
-};
-
-//实时刷新
+//数据传递和刷新
 export default class PageTwo extends Component {
   render() {
     const data = this.props.data || "null";
@@ -131,8 +85,13 @@ export default class PageTwo extends Component {
       <View style={styles.container}>
         <Text
           style={styles.welcome}
-          onPress={() => Actions.three({data: "从 two 传递到 three"})}
-        >我是Page Two </Text>
+          onPress={
+              () => Actions.three({
+                  		data: "从 two 传递到 three"
+              		})
+          }>
+            我是Page Two 
+        </Text>
         <Text
           style={styles.refresh}
           onPress={() => Actions.refresh({
@@ -144,49 +103,69 @@ export default class PageTwo extends Component {
   }
 }
 
-//数据传递
-import {Actions} from "react-native-router-flux"
- 
-const PageThree = () => {
+```
+
+#### Tabs 功能
+
+```jsx
+...
+import { Tabs } from 'react-native-router-flux';
+
+//设置tab选中时的字体颜色和标题
+const TabIcon = ({focused , title}) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.welcome}
-        //Actions.pop是退回到上一层
-        onPress={() => Actions.pop({
-          //refresh用于刷新数据
-          refresh: {
-            data: '从 three 回到 two'
-          }
-        })}
-      >我是Page Three </Text>
-    </View>
+    <Text 
+        style={{color: focused  ? 'blue' : 'black'}}
+    >
+          {title}
+    </Text>
   );
 };
-
-import {Actions} from 'react-native-router-flux'; // New code
  
-export default class PageTwo extends Component {
-  render() {
-    const data = this.props.data || "null";
-    return (
-      <View style={styles.container}>
-        <Text
-          style={styles.welcome}
-          //添加点击事件并传递数据到PageThree
-          onPress={() => Actions.three({data: "从 two 传递到 three"})}
-        >我是Page Two </Text>
-       <Text style={styles.refresh}
-        //展示从PageThree传回来的数据
-        >refresh:{data}</Text>
-      </View>
-    )
-  }
-}
+const Root = () => {
+  return (
+      <Router>
+        <Scene hideNavBar>
+          <Tabs
+            key="tabbar"
+            // 是否显示标签栏文字
+            showLabel={false}
+            tabBarStyle={{backgroundColor: "#eee"}}
+            //tab选中的颜色
+            activeBackgroundColor="white"
+            //tab没选中的颜色
+            inactiveBackgroundColor="red"
+          >
+            <Scene
+              key="one"
+              icon={TabIcon}
+              component={PageOne}
+              title="PageOne"
+            />
+
+            <Scene
+              key="two"
+              component={PageTwo}
+              title="PageTwo"
+              icon={TabIcon}
+            />
+
+            <Scene
+              key="three"
+              component={PageThree}
+              title="PageThree"
+              icon={TabIcon}
+            />
+          </Tabs>
+      </Scene>
+  </Router>)
+};
+
 ```
 
 
 
-#### 
+
 
 
 
