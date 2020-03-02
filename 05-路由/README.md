@@ -163,7 +163,60 @@ const Root = () => {
 
 ```
 
+#### Drawer
 
+```jsx
+<Drawer
+    key="drawer"
+    drawerPosition="left/right"
+    drawerImage={图片源}
+    drawerIcon={}
+    contentComponent={DrawerContent}
+	drawerWidth={400}
+    hideDrawerButton
+>
+    <Tabs></Tabs>
+</Drawer>
+```
+
+#### Lightbox 
+
+```jsx
+<Router>
+  <Lightbox>
+    <Scene key="root">
+      ...
+    </Scene>
+    <Scene key="light_box" component={MyLightbox} />
+  </Lightbox>
+</Router>
+```
+
+#### Modal
+
+```jsx
+<Router>
+  <Modal>
+    <Scene key="root">
+      ...
+    </Scene>
+    <Scene key="statusModal" component={StatusModal} />
+    <Scene key="errorModal" component={ErrorModal} />
+    <Scene key="loginModal" component={LoginModal} />
+  </Modal>
+</Router>
+```
+
+#### Actions
+
+- [key] : Actions.key( )  or  Actions[key].call( )
+- pop( )
+- replace( )
+- refresh( )
+- reset( )
+- currentScene: 返回当前的 Scene
+- drawerOpen
+- drawerClose
 
 
 
