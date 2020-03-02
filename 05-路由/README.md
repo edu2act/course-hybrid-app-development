@@ -37,6 +37,7 @@ import {Router, Scene} from "react-native-router-flux";
 const Root = () => {
   return (
     <Router>
+      {/*Router里只能放一个组件*/}  
       {/* 将全部的跳转页面都放在Root下面 */}
       <Scene key="root">
         {/* key 就是给页面的标签,供Actions使用 */}
@@ -217,6 +218,10 @@ const Root = () => {
 - currentScene: 返回当前的 Scene
 - drawerOpen
 - drawerClose
+
+#### Stack
+
+- 分组
 
 
 
