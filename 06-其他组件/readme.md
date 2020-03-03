@@ -2,8 +2,10 @@
 
 ## [react-native-button](https://github.com/ide/react-native-button)
 
-```
+```jsx
 yarn add react-native-button
+
+import Button from 'react-native-button';
 
 <Button 
     style={{
@@ -46,9 +48,14 @@ export default class extends React.Component {
 [图标地址](https://oblador.github.io/react-native-vector-icons/)
 
 ```jsx
+ //1. 安装
 yarn add react-native-vector-icons
-
+ //2. link，执行完在 项目\android\app\src\main\assets\fonts 文件夹下会多出 ttf 格式的图标文件
+react-native link react-native-vector-icons
+ //3. 卸载 App，重新 react-native run-android
+ //4. 引入 Icon 组件，注意后面的 / ,后面是哪个文件，将来就在 图标地址 哪一栏找图标名字
 import Icon from 'react-native-vector-icons/FontAwesome';
+
 <Icon name="rocket" size={30} color="#900" />;
 ```
 
