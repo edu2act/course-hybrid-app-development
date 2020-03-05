@@ -26,12 +26,17 @@ Animated.timing(
   },
 ).start( callback ); // 动画完成后可调用 callback 
 // *timing可以换成spring，有反弹效果动画
+//3.使用 <Animated.View></Animated.View> 组件
 ```
 
 ### WebView
 
 ```jsx
 yarn add react-native-webview
+react-native link react-native-webview
+//在 android/gradle.properties  中添加 
+android.useAndroidX=true
+android.enableJetifier=true
 
 import { WebView } from 'react-native-webview';
 
@@ -48,14 +53,14 @@ yarn add react-native-image-picker
 react-native link react-native-image-picker
 ```
 
-- 在 AndroidManifest.xml 添加
+- 在 项目\android\app\src\main\AndroidManifest.xml 添加
 
 ```jsx
 <uses-permission android:name="android.permission.CAMERA" />
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 ```
 
-- 在 MainActivity 中添加
+- 在 项目\android\app\src\main\java\com\项目名\MainActivity 中添加
 
 ```jsx
 //开头
