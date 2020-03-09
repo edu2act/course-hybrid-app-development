@@ -60,7 +60,7 @@
 > ./gradlew assembleRelease
 > ```
 >
-> 
+> 在 项目\android\app\build\outputs\apk\release下出现一个app-release.apk 即成功
 
 ### 更换 logo 图标
 

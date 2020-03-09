@@ -107,6 +107,7 @@ ImagePicker.showImagePicker(options, (response) => {
 ### [react-native-image-crop-picker](https://github.com/ivpusic/react-native-image-crop-picker)
 
 ```jsx
+
 yarn add react-native-image-crop-picker
 react-native link react-native-image-crop-picker
 
