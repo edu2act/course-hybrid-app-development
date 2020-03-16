@@ -68,7 +68,7 @@ let isDone: boolean = false;
 
 ### 接口
 
-> interface ：描述一个对象的取值规范
+> interface ：描述一个对象的取值规范，不实现具体的对象
 
 - 属性接口
 
@@ -110,8 +110,6 @@ class user1 implements User{
 }
 ```
 
-
-
 - 继承
 
 ```tsx
@@ -123,8 +121,61 @@ interface Square extends Shape {
     sideLength: number;
 }
 
-let square = <Square>{};
+let square = {} as Square;
 square.color = "blue";
 square.sideLength = 10;
+```
+
+### 类
+
+- 定义
+- 继承
+- 静态属性和静态方法（static）
+- 访问修饰符
+  - public
+  - private
+  - protected
+
+### 泛型
+
+> 泛型（Generics）是指在定义函数、接口或类的时候，不预先指定具体的类型，而在使用的时候再指定类型的一种特性。
+>
+> 使用泛型来创建可重用的组件，一个组件可以支持多种类型的数据
+
+- 泛型函数
+
+```tsx
+function identity<T>(arg: T): T {
+    return arg;
+}
+```
+
+- 泛型接口
+
+```tsx
+interface GenericIdentityFn<T> {
+    (arg: T): T;
+}
+
+function identity<T>(arg: T): T {
+    return arg;
+}
+
+let myIdentity: GenericIdentityFn<number> = identity;
+```
+
+- 泛型类
+
+```tsx
+class AddData<T>{
+    list:T[] = [];
+    add(data:T):T[]{
+        this.list.push(data);
+        return this.list;
+    }
+}
+let data1 = new AddData<number>()
+data1.list.push(1)
+
 ```
 
