@@ -148,6 +148,8 @@ square.sideLength = 10;
 function identity<T>(arg: T): T {
     return arg;
 }
+identity<string>('params1')
+identity<number>(100)
 ```
 
 - 泛型接口
@@ -169,6 +171,7 @@ let myIdentity: GenericIdentityFn<number> = identity;
 ```tsx
 class AddData<T>{
     list:T[] = [];
+    num:number;
     add(data:T):T[]{
         this.list.push(data);
         return this.list;
@@ -179,3 +182,122 @@ data1.list.push(1)
 
 ```
 
+### 装饰器
+
+> *装饰器*是一种特殊类型的声明，它能够被附加到类声明、方法、属性或参数上。 装饰器使用`@expression`这种形式，`expression`求值后必须为一个函数，它会在运行时被调用，被装饰的声明信息做为参数传入。
+
+#### 配置
+
+```
+yarn add -D @babel/plugin-proposal-decorators
+
+//添加配置
+// 创建 .babelrc 文件
+{
+    "presets": ["module:metro-react-native-babel-preset"],
+    "plugins":[["@babel/plugin-proposal-decorators", { "legacy": true }]]
+}
+
+// tsconfig.json中添加 "experimentalDecorators": true
+{
+    "compilerOptions": {
+        "target": "ES5",
+        "experimentalDecorators": true
+    }
+}
+```
+
+#### 定义
+
+```tsx
+// 普通装饰器（无参数）
+function helloWord(target: any) {
+    console.log('hello Word!');
+}
+@helloWord
+class HelloWordClass {
+
+}
+// 装饰器工厂 （带参数）
+function helloWord(p:string) {
+    return function (target) { //  这才是真正装饰器
+         console.log(p)
+    }
+}
+@helloWord('hello')
+class HelloWordClass {
+
+}
+```
+
+#### 分类
+
+- 类装饰器
+
+  > 参数是类的构造函数
+  >
+  > 如果类装饰器返回一个值，它会使用提供的构造函数来替换类的声明
+
+- 方法装饰器
+
+  > 方法装饰器表达式会在运行时当作函数被调用，传入下列3个参数：
+  >
+  > 1. 对于静态成员来说是类的构造函数，对于实例成员是类的原型对象。
+  > 2. 成员的名字。
+  > 3. 成员的属性描述符。
+
+  ```tsx
+  function enumerable(value: boolean) {
+      return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+          descriptor.enumerable = value;
+      };
+  }
+  class Greeter {
+      greeting: string;
+      constructor(message: string) {
+          this.greeting = message;
+      }
+  
+      @enumerable(false)
+      greet() {
+          return "Hello, " + this.greeting;
+      }
+  }
+  ```
+
+- 属性装饰器
+
+  > 属性装饰器表达式会在运行时当作函数被调用，传入下列2个参数：
+  >
+  > 1、对于静态成员来说是类的构造函数，对于实例成员是类的原型对象
+  >
+  > 2、成员的名字
+
+  ```tsx
+  function DefaultValue(value: string) {
+      return function (target: any, propertyName: string) {
+          target[propertyName] = value;
+      }
+  }
+  
+  class Hello {
+      @DefaultValue("Hello") greeting: string;
+  }
+  
+  console.log(new Hello().greeting);
+  ```
+
+- 参数装饰器
+
+  > 参数装饰器表达式会在运行时当作函数被调用，传入下列3个参数：
+  >
+  > 1. 对于静态成员来说是类的构造函数，对于实例成员是类的原型对象。
+  > 2. 成员的名字。
+  > 3. 参数在函数参数列表中的索引。
+
+#### 装饰器组合
+
+> 当多个装饰器应用在一个声明上时会进行如下步骤的操作：
+>
+> 1. 由上至下依次对装饰器表达式求值。
+> 2. 求值的结果会被当作函数，由下至上依次调用
