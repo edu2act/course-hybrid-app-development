@@ -262,7 +262,7 @@ class HelloWordClass {
       greet() {
           return "Hello, " + this.greeting;
       }
-  }
+  }																												
   ```
 
 - 属性装饰器
