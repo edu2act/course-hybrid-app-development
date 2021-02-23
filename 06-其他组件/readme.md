@@ -201,7 +201,7 @@ import Swiper from 'react-native-swiper';
 
 ### [react-native-elements](https://react-native-elements.github.io/react-native-elements/docs/getting_started.html)
 
-### 
+
 
 
 
