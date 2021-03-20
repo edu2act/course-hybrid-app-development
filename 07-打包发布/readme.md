@@ -73,3 +73,53 @@
 ### 更换项目名称
 
 > 将项目目录下的 android\app\src\main\res\values 中的 strings.xml 中的名称改掉即可
+
+### react-native-splash-screen
+
+> 1、yarn add react-native-splash-screen
+>
+> 2、yarn react-native link react-native-splash-screen
+>
+> 3、更新 MainActivity.java
+>
+> ```
+> import android.os.Bundle; // here，不要放在第一行
+> import com.facebook.react.ReactActivity;
+> // react-native-splash-screen >= 0.3.1
+> import org.devio.rn.splashscreen.SplashScreen; // here
+> 
+> public class MainActivity extends ReactActivity {
+>    @Override
+>     protected void onCreate(Bundle savedInstanceState) 	  {
+>         SplashScreen.show(this);  // here
+>         super.onCreate(savedInstanceState);
+>     }
+>     // ...other code
+> }
+> 
+> ```
+>
+> 4、在  `android/app/src/main/res/layout` 下创建一个`launch_screen.xml`文件,添加如下代码
+>
+> ```
+> <?xml version="1.0" encoding="utf-8"?>
+> <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+>     android:orientation="vertical" android:layout_width="match_parent"
+>     android:layout_height="match_parent">
+>     <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/launch_screen" android:scaleType="centerCrop" />
+> </RelativeLayout>
+> ```
+>
+> 5、在`android/app/src/main/res/values/styles.xml` 
+>
+> ```
+> <resources>
+>     <!-- Base application theme. -->
+>     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+>         <!-- Customize your theme here. -->
+>         <!--添加如下代码，设置透明背景-->
+>         <item name="android:windowIsTranslucent">true</item>
+>     </style>
+> </resources>
+> ```
+

@@ -86,7 +86,7 @@ export default class DisplayAnImage extends Component {
 
 ### ImageBackground
 
-> 添加背景色，必须指定 width 和 height，通过 source 属性指定 背景图片
+> 添加背景图，必须指定 width 和 height，通过 source 属性指定 背景图片
 
 ```jsx
  <ImageBackground 
@@ -181,8 +181,6 @@ export default class DisplayAnImage extends Component {
 ### BackHandler
 
 ### ToastAndroid
-
-### ToolbarAndroid
 
 ### DrawerLayoutAndroid
 

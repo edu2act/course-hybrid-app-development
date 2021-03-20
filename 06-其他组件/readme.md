@@ -33,8 +33,8 @@ Animated.timing(
 
 ```jsx
 yarn add react-native-webview
-react-native link react-native-webview
-//在 android/gradle.properties  中添加 
+yarn react-native link react-native-webview
+//在 android/gradle.properties  中添加，新版RN中已经配置 
 android.useAndroidX=true
 android.enableJetifier=true
 
@@ -45,11 +45,25 @@ import { WebView } from 'react-native-webview';
 
 ### [react-native-image-picker](https://github.com/react-native-community/react-native-image-picker)
 
+```javascript
+link操作影响的文件：android>app>build.gradle
+android>setting.gradle
+android>app>src>main>xxx>MainApplication.java
+
+react-native-image-picker@3.0.0以上需要minSdkVersion至少是21
+夜神模拟器的版本是19，所以如果把minSdkVersion改成21，App将装不到模拟器上
+降低组件的版本或升级模拟器版本
+如果安装了某个包，需要link的，报错，想去掉，先执行
+yarn react-native unlink packageName
+然后再remove
+
+```
+
 - 安装并 link
 
 ```jsx
-yarn add react-native-image-picker
-
+yarn add react-native-image-picker@2.3.0
+//新版本中不行再执行下面的操作
 react-native link react-native-image-picker
 ```
 
@@ -170,9 +184,9 @@ export default class extends React.Component {
 ```jsx
  //1. 安装
 yarn add react-native-vector-icons
- //2. link，执行完在 项目\android\app\src\main\assets\fonts 文件夹下会多出 ttf 格式的图标文件
-react-native link react-native-vector-icons
- //3. 卸载 App，重新 react-native run-android
+ //2. 执行 link，执行完在 项目\android\app\src\main\assets\fonts 文件夹下会多出 ttf 格式的图标文件
+（npx）react-native link react-native-vector-icons
+ //3. 卸载 App，重新 (npx)react-native run-android
  //4. 引入 Icon 组件，注意后面的 / ,后面是哪个文件，将来就在 图标地址 哪一栏找图标名字
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -182,7 +196,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 ### [react-native-swiper](https://github.com/leecade/react-native-swiper)
 
 ```jsx
-yarn add react-native-swiper@nightly
+yarn add react-native-swiper@next
 
 import Swiper from 'react-native-swiper';
 
